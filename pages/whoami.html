@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet"> -->
+
+    <style>
+        /* WHOAMI CONTENT STYLING */
+        .whoami-label {
+          color: #f3865f;
+          text-align: left;
+          text-indent: 120px;
+          margin-top: 60px;
+          font-family: "CourierPrime-Regular", sans-serif;
+          font-size: 40px;
+          font-weight: 400;
+          /* position: relative; */
+          text-shadow:
+          -1px -1px 0 #000000,
+          1px -1px 0 #000000,
+          -1px 1px 0 #000000,
+          1px 1px 0 #000000,
+          0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+      .whoami-content {
+        text-align: center;
+        color: rgba(204, 200, 200, 1);
+        font-size: 20px;
+        font-weight: 300;
+        font-family: 'Courier Prime', monospace;
+      }
+
+      .para1{
+        display: block;
+        /* padding: 35px; */
+        /* line-height: 1.6; */
+        margin-bottom: 20px;
+        margin-top: 30px;
+        text-align: left;
+        text-indent: 20px;
+        max-width: 1300px;
+        padding-left: 150px;
+        font-family: 'Courier Prime', monospace;
+        font-weight: 400;
+      }
+      .para2{
+        display: block;
+        /* padding: 35px; */
+        margin-bottom: 25px;  
+        margin-top: 20px;
+        font-family: 'Courier Prime', monospace;
+        font-weight: 400;
+
+      }
+      .para3{
+        display: block;
+        /* padding: 35px; */
+        margin-bottom: 20px;
+        margin-top: 30px;
+        text-align: left;
+        max-width: 1250px;
+        padding-left: 145px;
+        text-indent: 30px;
+        font-family: 'Courier Prime', monospace;
+        font-weight: 400;
+      }
+      .para4{
+        display: block;
+        /* padding: 35px; */
+        margin-bottom: 40px;
+        margin-top: 40px;
+        text-align: left;
+        max-width: 1350px;
+        padding-left: 125px;
+        text-indent: 100px;
+        font-family: 'Courier Prime', monospace;
+        font-weight: 400;
+      }
+      .para5{
+        display: block;
+        /* padding: 35px; */
+        font-family: 'Courier Prime', monospace;
+        font-weight: 400;
+      }
+
+      .para5 a {
+        /* text-decoration: none; Remove underline from the link */
+        color: inherit;          
+      }
+
+      .email-id {
+        text-align: center;
+            font-size: 30px;
+            color: rgba(53, 250, 135, 1); /* Keep your color, but ensure it's visible against your background */
+            display: block;
+            padding: 35px; /* Add some padding for better visibility */
+            margin: 10px 0; /* Add some margin for spacing */
+            margin-top: 50px ;
+      }
+      .email-id a {
+        /* text-decoration: none; Remove underline from the link */
+        color: inherit;          
+      }
+    </style>
+</head>
+<body>
+    <!-- CONTENT OF HEADER -->
+    <div id="header-placeholder"></div>
+    <!-- MAIN CONTENT OF POSTS -->
+    <div class="whoami-label">whoami 🧑‍💻</div>
+    <div class="whoami-content">
+      <span class="para1">
+        👋🏻 Hello there (General Kenobi)! I’m Kaustubh. By trade, I'm an AppSec Engineer with a B.Tech CS degree in my arsenal. A total Security nerd. 
+      </span>
+      <span class="para2">
+        I tend to write code, use it and then delete it thinking I’ll never really need it again 🤷🏻
+      </span>
+      <span class="para3">   In the realm of hobbies, I’m an unabashed comic book lover and a self-professed couch potato. When I’m not diving into side projects or ironically automating tasks — often at the cost of more time than doing them manually.
+      </span>
+      <span class="para4">
+        I solve CTFs and in my spare time, watch Mr.Robot and try to implement those tactics IRL to get that unparalleled technical accuracy, or at least try to.
+      </span>
+      <span class="para5">
+        Hope you find something you like on my blog! You can see my resume <a href="/assets/img/Resume.pdf" target="_blank">here</a>.
+      </span>
+    </div>
+    <div class="email-id">
+      <a href="mailto:raikaustubh12@gmail.com?subject = Contact&body = Message">
+      📧 raikaustubh12@gmail.com 
+      </a>
+    </div>
+
+
+    <!-- CONTENT OF FOOTER -->
+      <footer id="footer-placeholder"></footer>
+    <!-- CONTENT OF JS -->
+    <script>
+      // Function to fetch and insert header and footer
+      function loadComponent(componentId, filePath) {
+        fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById(componentId).innerHTML = data;
+          })
+          .catch(error => console.error('Error loading component:', error));
+      }
+  
+      // Load the header and footer when the window loads
+      window.onload = function() {
+        loadComponent('header-placeholder', '../header.html');
+        loadComponent('footer-placeholder', '../footer.html');
+      };
+      </script>
+</body>
+</html>

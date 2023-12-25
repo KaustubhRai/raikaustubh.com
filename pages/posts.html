@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- CONTENT OF HEADER -->
+    <div id="header-placeholder"></div>
+    <!-- MAIN CONTENT OF POSTS -->
+        POSTS CONTENT
+    <!-- CONTENT OF FOOTER -->
+      <footer id="footer-placeholder"></footer>
+    <!-- CONTENT OF JS -->
+    <script>
+      // Function to fetch and insert header and footer
+      function loadComponent(componentId, filePath) {
+        fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById(componentId).innerHTML = data;
+          })
+          .catch(error => console.error('Error loading component:', error));
+      }
+  
+      // Load the header and footer when the window loads
+      window.onload = function() {
+        loadComponent('header-placeholder', '../header.html');
+        loadComponent('footer-placeholder', '../footer.html');
+      };
+      </script>
+</body>
+</html>

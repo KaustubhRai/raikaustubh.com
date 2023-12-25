@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notes</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+      /* notes and setup content styling */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* This will hide any overflow on the entire page */
+        /* background-color: var(--background-color); */
+      }
+      /* Layout */
+      .grid {
+        /* position: relative; */
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap; /* prevents wrapping */
+        overflow: hidden; /* Hide overflow to prevent scrollbar */
+      }
+      
+      
+      .column {
+        flex-basis: 50%; /* This will define the default size of an element before the remaining space is distributed */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* This will center the flex items along the main axis */
+        align-items: center; /* This will center the flex items along the cross axis */
+        padding: 2em; /* Adjust this padding as needed, but keep it the same for both columns */
+      }
+
+      /* Content Styling */
+      .column .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto; /* This will only take as much height as it needs */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      .column h2, .column h3, .column p {
+        margin: 0; /* Remove default margins */
+        padding: 0.5em 0; /* Add some vertical spacing */
+        text-transform: uppercase;
+        font-family: 'Courier Prime', monospace;
+      }
+
+      .column h2 span {
+        display: block;
+        line-height: 1.1;
+      }
+
+      .grid .column h2,
+      .grid .column p {
+        margin: 0;
+      }
+
+      :root {
+        --background-shade: #282A36;
+        background: var(--background-shade);
+      }
+
+      #setup .content h2 {
+        background-color: var(--background-shade);
+        color: transparent;
+        text-shadow: 3px 3px 3px rgba(255, 255, 255, 0.1);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        filter: brightness(4);
+        font-family: 'Courier Prime', monospace;
+        font-size: 100px;
+        letter-spacing: 2px;
+      }
+
+      #setup .content h3, #setup .content p {
+        font-family: 'Courier Prime', monospace;
+        font-size: 25px;
+        letter-spacing: 2px;
+        font-weight: 200;
+        color: #D9D9D9;
+      }
+
+      #notes .content h2{
+        color: #00FFFF;
+        filter: drop-shadow(3px 3px 3px #000000);
+        font-family: 'Courier Prime', monospace;
+        font-size: 98px;
+        letter-spacing: 2px;
+      }
+
+      #notes .content h3, #notes .content p {
+        font-family: 'Courier Prime', monospace;
+        font-size: 25px;
+        letter-spacing: 2px;
+        color: #00FFFF;
+        font-weight: 200;
+        /* line-height: 110%; */
+        /* max-width: 30px; */
+      }
+
+      /*-----------------*/
+      /***** Hover *****/
+      /*-----------------*/
+      .effect-hover h2,
+      .effect-hover h3,
+      .effect-hover p,
+      .effect-hover i{
+        -webkit-transition: opacity 0.35s, 
+          -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+      }
+      
+      .effect-hover .content {
+        position: relative; /* Ensure the pseudo-element is positioned relative to this element */
+      }
+
+      .effect-hover .content::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 350px;
+        height: 350px;
+        border: 3px solid #fff;
+        content: '';
+        opacity: 0;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        /* remove this bit if you want the tilted square to swing up */
+        -webkit-transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, -45deg) scale3d(0, 0, 1);
+        transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, -45deg) scale3d(0, 0, 1);
+      }
+
+      .effect-hover p:hover,
+      .effect-hover p:focus {
+        opacity: 0.6;
+      } /* Keeps things consistent */
+
+
+      .effect-hover p,
+      .effect-hover h3{
+        opacity: 0;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+      }
+
+      .effect-hover:hover .content::before {
+        opacity: 1;
+        -webkit-transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, -45deg) scale3d(1, 1, 1);
+  transform: translate3d(-50%, -50%, 0) rotate3d(0, 0, 1, -45deg) scale3d(1, 1, 1);
+      }
+
+      .effect-hover:hover h2 {
+        opacity: 0;
+        -webkit-transform:  scale3d(0.8,0.8,1);
+        transform: scale3d(0.8,0.8,1);
+      }
+      .effect-hover:hover h3,
+      .effect-hover:hover p{
+        opacity: 1;
+      }
+
+      .effect-hover:hover .content h3, 
+      .effect-hover:hover .content p {
+        position: relative;
+        font-size: smaller; /* Adjust the font size */
+        line-height: normal; /* Adjust the line height */
+        opacity: 1;
+        transform: translateY(-110%); /* Move them up by some 
+        % of their height */
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+
+      .effect-hover .content h3, 
+      .effect-hover .content p {
+        transform: translateY(100%); /* Start below the square */
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        opacity: 0; /* Start out invisible */
+      }
+
+
+
+      .effect-hover:hover i{
+        -webkit-transform:  scale3d(2.5,2.5,2);
+        transform: scale3d(2.5,2.5,2);
+      }
+
+      
+    </style>
+</head>
+<body>
+    <!-- CONTENT OF HEADER -->
+    <div id="header-placeholder"></div>
+    <!-- MAIN CONTENT OF POSTS -->
+        <div class="grid">
+          <!--Left side-->
+          <div id="setup" class="column effect-hover">
+            <div class="content">
+              <i class="fa fa-venus" aria-hidden="true"></i>
+              <h2><span>setup</span></h2>
+              <h3>Installations and Guides</h3>
+              <p>Security Tools</p>
+            </div>		    
+          </div>
+          <!--Right side-->
+          <div id="notes" class="column effect-hover">
+            <div class="content">
+              <i class="fa fa-mars" aria-hidden="true"></i>
+              <h2><span>Notes</span></h2>
+              <h3>INSIGHTS AND LEARNINGS</h3>
+              <!-- <h3>LEARNINGS</h3> -->
+              <p>Research & Tips</p>
+            </div>			
+          </div>
+        
+        </div>
+
+        <!-- <script>
+          $(document).ready( function(){
+            // Your existing JavaScript code for animations goes here
+          });
+        </script> -->
+          
+
+    <!-- CONTENT OF FOOTER -->
+      <footer id="footer-placeholder"></footer>
+    <!-- CONTENT OF JS -->
+    <script>
+      // Function to fetch and insert header and footer
+      function loadComponent(componentId, filePath) {
+        fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById(componentId).innerHTML = data;
+          })
+          .catch(error => console.error('Error loading component:', error));
+      }
+  
+      // Load the header and footer when the window loads
+      window.onload = function() {
+        loadComponent('header-placeholder', '../header.html');
+        loadComponent('footer-placeholder', '../footer.html');
+      };
+      </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* HEADER CONTENT */
+.nav-links {
+    background-color: #282a36;
+    color: #ccc8c8;
+    padding: 20px 0; /* Top and bottom padding only */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns items to the left */
+    width: 100%;
+    font-weight: 700;
+  }
+  
+  .nav-link-top {
+    /* Adjust the left padding to push content to the left */
+    padding-left: 20px; /* Or the amount that fits your design */
+  }
+  
+  .nav-link-top a {
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Ensures the link color is the same as the parent text color */
+  }
+  
+  .raikaustubh-me {
+    color: #ccc8c8;
+    font-family: 'Courier Prime', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .cursor {
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  .nav-link-bottom {
+    display: flex;
+    padding-left: 40px; /* Increase left padding to push menu items to the right */
+    gap: 20px; /* Adjust as needed */
+  }
+  
+  .nav-link-bottom a {
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Ensures the link color is the same as the parent text color */
+  }
+  
+  .posts, .notes, .whoami {
+    color: #f3865f;
+    font-family: 'Courier Prime', sans-serif;
+    font-size: 20px;
+    /* font-weight: 700; */
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Adds space below the site title */
+  }
+  .posts, .notes, .whoami {
+    position: relative;
+  }
+  
+  .posts::after, .notes::after, .whoami::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, #f3865f, #ccc8c8, #282a36);
+    transition: width .3s ease-in-out;
+  }
+  
+  .posts:hover::after, .notes:hover::after, .whoami:hover::after {
+    width: 100%;
+  }
+
+/* FOOTER CONTENT  */
+
+/* FOOTER CONTENT */
+#footer-placeholder {
+    margin-top: auto; /* Pushes the footer to the bottom */
+  }
+  .nav-site-footer {
+    color: #F3865F;
+    text-align: center;
+    padding: 20px;
+    width: 100%; /* Ensure it takes full width */
+    font-weight: 700;
+  }
+  
+  .nav-site-footer a {
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Ensures the link color is the same as the parent text color */
+  }
+  
+  .footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .footer-symbol {
+    border: 2px solid #F3865F; /* Border color */
+    border-radius: 50%; /* Makes it round */
+    width: 35px; /* Adjust size as necessary */
+    height: 35px; /* Adjust size as necessary */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px; /* Spacing between the symbol and year */
+  }
+  
+  .footer-year, .footer-dot, .footer-name {
+    font-weight: bold; /* If you want the font to be bold */
+    margin: 0 5px; /* Adjust the margin as necessary */
+  }
+  
+  .footer-dot {
+    font-size: larger; /* Makes the dot slightly larger than other text */
+  }

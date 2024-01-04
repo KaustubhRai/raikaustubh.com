@@ -1,0 +1,167 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import '../styles/global.css'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    	<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+		<title>whoami</title>
+		<style>
+			html {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			}
+
+			body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			font-family: 'Courier Prime', monospace;
+			background-color: #282A36;
+			overflow-x: hidden; /* Hide horizontal scrollbar */ 
+			}
+
+            /* WHOAMI CONTENT STYLING */
+            .whoami-label {
+                color: #f3865f;
+                text-align: left;
+                text-indent: 120px;
+                margin-top: 60px;
+                font-family: "CourierPrime-Regular", sans-serif;
+                font-size: 40px;
+                font-weight: 400;
+                /* position: relative; */
+                text-shadow:
+                -1px -1px 0 #000000,
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000,
+                0px 4px 4px rgba(0, 0, 0, 0.25);
+                }
+            .whoami-content {
+                text-align: center;
+                color: rgba(204, 200, 200, 1);
+                font-size: 20px;
+                font-weight: 300;
+                font-family: 'Courier Prime', monospace;
+            }
+
+            .para1{
+                display: block;
+                /* padding: 35px; */
+                /* line-height: 1.6; */
+                margin-bottom: 20px;
+                margin-top: 30px;
+                text-align: left;
+                text-indent: 20px;
+                max-width: 1300px;
+                padding-left: 150px;
+                font-family: 'Courier Prime', monospace;
+                font-weight: 400;
+            }
+            .para2{
+                display: block;
+                /* padding: 35px; */
+                margin-bottom: 25px;  
+                margin-top: 20px;
+                font-family: 'Courier Prime', monospace;
+                font-weight: 400;
+
+            }
+            .para3{
+                display: block;
+                /* padding: 35px; */
+                margin-bottom: 20px;
+                margin-top: 30px;
+                text-align: left;
+                max-width: 1250px;
+                padding-left: 145px;
+                text-indent: 30px;
+                font-family: 'Courier Prime', monospace;
+                font-weight: 400;
+            }
+            .para4{
+                display: block;
+                /* padding: 35px; */
+                margin-bottom: 40px;
+                margin-top: 40px;
+                text-align: left;
+                max-width: 1350px;
+                padding-left: 125px;
+                text-indent: 100px;
+                font-family: 'Courier Prime', monospace;
+                font-weight: 400;
+            }
+            .para5{
+                display: block;
+                /* padding: 35px; */
+                font-family: 'Courier Prime', monospace;
+                font-weight: 400;
+            }
+
+            .para5 a {
+                /* text-decoration: none; Remove underline from the link */
+                color: inherit;          
+            }
+
+            .email-id {
+                text-align: center;
+                    font-size: 30px;
+                    color: rgba(53, 250, 135, 1); /* Keep your color, but ensure it's visible against your background */
+                    display: block;
+                    padding: 35px; /* Add some padding for better visibility */
+                    margin: 10px 0; /* Add some margin for spacing */
+                    margin-top: 50px ;
+            }
+            .email-id a {
+                /* text-decoration: none; Remove underline from the link */
+                color: inherit;          
+            }
+
+		</style>
+	</head>
+	<body>
+		<!-- CONTENT OF HEADER  -->
+		<div id="header-placeholder"></div>
+		<Header />
+
+        <!-- content of about page -->
+        <div class="whoami-label">whoami 🧑‍💻</div>
+        <div class="whoami-content">
+            <span class="para1">
+                👋🏻 Hello there (General Kenobi)! I’m Kaustubh. By trade, I'm an AppSec Engineer with a B.Tech CS degree in my arsenal. A total Security nerd. 
+            </span>
+            <span class="para2">
+                I tend to write code, use it and then delete it thinking I’ll never really need it again 🤷🏻
+            </span>
+            <span class="para3">   In the realm of hobbies, I’m an unabashed comic book lover and a self-professed couch potato. When I’m not diving into side projects or ironically automating tasks — often at the cost of more time than doing them manually.
+            </span>
+            <span class="para4">
+                I solve CTFs and in my spare time, watch Mr.Robot and try to implement those tactics IRL to get that unparalleled technical accuracy, or at least try to.
+            </span>
+            <span class="para5">
+                Hope you find something you like on my blog! You can see my resume <a href="../../src/assets/Resume.pdf" target="_blank">here</a>.
+            </span>
+        </div>
+        <div class="email-id">
+            <a href="mailto:raikaustubh12@gmail.com?subject = Contact&body = Message">
+            📧 raikaustubh12@gmail.com 
+            </a>
+        </div>
+		
+		<!-- CONTENT OF FOOTER -->
+		<footer id="footer-placeholder"></footer>
+		<Footer />
+	</body>
+</html>

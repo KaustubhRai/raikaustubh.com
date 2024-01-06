@@ -1,0 +1,53 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import '../styles/global.css'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    	<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+		<title>Homepage</title>
+		<style>
+			html {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			}
+
+			body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			font-family: 'Courier Prime', monospace;
+			background-color: #282A36;
+			overflow-x: hidden; /* Hide horizontal scrollbar */ 
+			}
+
+			
+
+		</style>
+	</head>
+	<body>
+		<!-- CONTENT OF HEADER  -->
+		<div id="header-placeholder"></div>
+		<Header />
+
+		<!-- Content in posts -->
+        <slot>
+            post content goes here
+        </slot>
+
+		<!-- CONTENT OF FOOTER -->
+		<footer id="footer-placeholder"></footer>
+		<Footer />
+	</body>
+</html>

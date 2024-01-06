@@ -1,0 +1,100 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import '../styles/global.css'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    	<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+		<title>Homepage</title>
+		<style>
+			html {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                scroll-behavior: smooth;
+			}
+
+			body {
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                font-family: 'Courier Prime', monospace;
+                background-color: #282A36;
+                overflow-x: hidden; /* Hide horizontal scrollbar */ 
+                color: #ccc8c8;
+                font-size: 20px;
+                font-weight: 400;
+			}
+
+			article {
+                max-width: 1200px; /* Adjust the width as per your design */
+                margin: 2rem 90px; /* Centers the article on the page */
+                padding: 1rem;
+                line-height: 1.6; /* Makes text more readable */
+                color: #ccc8c8; /* Text color for the article */
+                margin-left: auto;
+                margin-right: auto;
+                
+            }
+
+            
+            .title_text{
+                color: #f3865f;
+                font-weight: 700;
+                margin: auto;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            .subtitle_desc_text{
+                font-weight: 400;
+                color: #f3865f;
+                margin: auto;
+                margin-top: 30px;
+                font-size: 30px;
+            }
+
+            /* Style for the back to top link */
+            .back-to-top {
+                display: block;
+                text-align: right;
+                margin: 50px;
+                text-decoration: none; /* Remove underline */
+                font-weight: bold; /* Optional: if you want bold text */
+                color: #35fa87; /* Your desired color */
+            }
+            
+
+		</style>
+	</head>
+	<body>
+		<!-- CONTENT OF HEADER  -->
+		<div id="header-placeholder"></div>
+		<Header />
+        <!-- Go Back Link -->
+        <a href="/posts/" class="go-back" style="text-align: left; margin: 30px; text-decoration: none; color: #35fa87; font-weight: bold;">&lt; Go Back</a>
+
+        <h2 class="title_text">{Astro.props.frontmatter.title}</h2>
+        <h3 class="subtitle_desc_text">{Astro.props.frontmatter.description}</h3>
+
+		 <!-- Content in posts -->
+        <article>
+        <slot />
+        </article>
+        <!-- Back to Top Link -->
+        <a href="#top" class="back-to-top">^ Back to Top</a>
+		<!-- CONTENT OF FOOTER -->
+		<footer id="footer-placeholder"></footer>
+		<Footer />
+	</body>
+</html>

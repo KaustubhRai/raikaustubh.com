@@ -10,7 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.0.3",
+    "@astrojs/prism": "^3.0.0",
     "astro": "^4.0.9"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^2.0.3",
+    "astro-auto-import": "^0.4.2",
+    "astro-mdx-code-blocks": "^0.0.6"
   }
 }

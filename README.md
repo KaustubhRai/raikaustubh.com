@@ -41,3 +41,16 @@ Build Command - `npm run build`
 Output Directory - `./dist`
 
 Framework - Astro, if not present then Other
+
+Codeblocks - 
+
+```extension
+// filename
+stuff
+```
+
+Backquote - 
+>
+
+Code - 
+`stuff`

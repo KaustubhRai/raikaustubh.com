@@ -1,8 +1,18 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import AutoImport from 'astro-auto-import';
 
-// https://astro.build/config
+import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
+
 export default defineConfig({
-    // ...
-    integrations: [mdx()]
+  integrations: [
+    AutoImport({
+      imports: [
+        // Update the path if necessary to match the actual location
+        mdxCodeBlockAutoImport('./src/components/CodeBlock.astro'),
+      ],
+    }),
+    MDXCodeBlocks(),
+    mdx(),
+  ],
 });

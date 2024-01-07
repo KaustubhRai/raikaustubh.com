@@ -121,3 +121,24 @@
   .footer-dot {
     font-size: larger; /* Makes the dot slightly larger than other text */
   }
+
+  code {
+    background-color: #44475a; /* Slightly lighter than your page background */
+    color: #f1fa8c; /* A light, contrasting color for the text */
+    padding: 0.2em 0.4em; /* Small padding around the text */
+    border-radius: 3px; /* Rounded corners for a softer look */
+    font-family: monospace;
+}
+
+  blockquote {
+    border-left: 4px solid #f3865f; /* A contrasting color to your background */
+    margin: left; /* Smaller vertical space around the blockquote */
+    padding: 0.1em; /* Smaller vertical and horizontal padding inside the blockquote */
+    color: #ccc8c8; /* Light text color for contrast */
+    background-color: #282a36; /* Darker background for the blockquote */
+    max-width: 15%; /* Limit the width */
+    font-style: italic; /* Optional: if you want italic text */
+  }
+
+
+

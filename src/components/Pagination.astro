@@ -1,0 +1,18 @@
+---
+const { prevUrl, nextUrl } = Astro.props;
+---
+
+<footer aria-label="Posts pages" style="text-align: center; padding: 2rem 0;">
+  <nav>
+    {prevUrl && (
+      <a href={prevUrl} style="text-decoration: none; color: #f3865f; font-weight: bold; padding-right: 1rem;">
+        Previous
+      </a>
+    )}
+    {nextUrl && (
+      <a href={nextUrl} style="text-decoration: none; color: #f3865f; font-weight: bold; padding-left: 1rem;">
+        Next
+      </a>
+    )}
+  </nav>
+</footer>

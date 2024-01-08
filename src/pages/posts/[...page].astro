@@ -1,0 +1,135 @@
+---
+import type { GetStaticPaths } from "astro";
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import '../../styles/global.css'
+import Pagination from "../../components/Pagination.astro";
+
+
+const pageTitle = "Posts"
+
+// Helper function to format date
+function formatDate(dateString) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${day} ${months[monthIndex]} ${year}`;
+}
+
+export async function getStaticPaths({ paginate }) {
+	// Use Astro.glob to get all Markdown files in the /posts directory
+	const allPostsUnsorted = await Astro.glob('../posts/*.mdx');
+
+	// Sort posts in descending order by date
+	const allPosts = allPostsUnsorted.sort((a, b) => {
+	return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+	});
+	
+	return paginate(allPosts, {
+		pageSize: 5,
+	})
+}
+
+const { page } = Astro.props;
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    	<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+		<title>Posts</title>
+		<style>
+			html {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			}
+
+			body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			font-family: 'Courier Prime', monospace;
+			background-color: #282A36;
+			overflow-x: hidden; /* Hide horizontal scrollbar */ 
+			}
+
+			ul {
+                list-style: none; /* Removes the default list-style */
+                padding: 0; /* Adjust padding as needed */
+
+				margin: 0; /* Remove default margin to center align the list */
+				margin-top: 90px; /* Add space between the header and the post titles */
+
+				width: 100%; /* Full width to align text properly */
+				display: flex; /* Use flexbox to center items */
+				flex-direction: column; /* Align items in a column */
+				align-items: center; /* Center items horizontally */
+				font-weight: 400;
+            }
+
+            ul li {
+                margin-bottom: 45px; /* Space between list items */
+
+				display: flex; /* Makes the li a flex container */
+				justify-content: space-between; /* Aligns children to the ends */
+				width: 80%; /* Adjust the width as needed */
+            }
+
+            ul li a {
+                color: #ccc8c8; /* Color for the title */
+                text-decoration: none; /* Removes underline */
+
+				 /* display: inline-block;Makes the link inline-block to enable centering */
+				display: flex; /* Align title and date in the same line */
+				justify-content: space-between; /* Spaces title and date apart */
+				width: 100%; /* Ensures the flex container fills the li */
+            }
+
+            ul li a:hover {
+                text-decoration: none; /* No Underline on hover */
+            }
+
+            ul li a span.date {
+                color: #09ba61; /* Color for the date */
+                margin-left: 10px; /* Space between title and date */
+            }
+			
+
+		</style>
+	</head>
+	<body>
+		<!-- CONTENT OF HEADER  -->
+		<div id="header-placeholder"></div>
+		<Header />
+
+		<!-- POSTS content -->
+		<!-- <h1>{pageTitle}</h1> -->
+
+		<ul>
+            {page.data.map(post => (
+                <li>
+                    <a href={post.url}>{post.frontmatter.title}
+						<span class="date">{formatDate(post.frontmatter.pubDate)}</span>
+					</a>
+                </li>
+            ))}
+        </ul>
+
+        <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+		<!-- CONTENT OF FOOTER -->
+		<footer id="footer-placeholder"></footer>
+		<Footer />
+	</body>
+</html>

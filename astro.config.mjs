@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import AutoImport from 'astro-auto-import';
+import partytown from '@astrojs/partytown'
 
 import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
 
@@ -14,5 +15,10 @@ export default defineConfig({
     }),
     MDXCodeBlocks(),
     mdx(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
   ],
 });

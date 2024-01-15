@@ -1,0 +1,195 @@
+---
+import type { GetStaticPaths } from "astro";
+const pageTitle = "Notes Gathered"
+
+// Helper function to format date
+function formatDate(dateString) {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${day} ${months[monthIndex]} ${year}`;
+}
+const allPostsUnsorted = await Astro.glob('../notes_posts/*.mdx');
+	// Sort posts in descending order by date
+const allPosts = allPostsUnsorted.sort((a, b) => {
+	return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+});
+
+---
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+        <title>{pageTitle}</title>
+        <style>
+            body {
+                background-color: #282A36;
+                overflow-x: hidden; /* Hide horizontal scrollbar */
+                font-family: 'Courier Prime', monospace;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+            }
+            /* CLOSE ICON */
+            .close-icon {
+                  width: 36px;
+                  height: 36px;
+                  cursor: pointer;
+                  position: absolute;
+                  top: 4%;
+                  right: 2%;
+              }
+        
+              .close-icon div {
+                  display: block;
+                  height: 3px;
+                  position: relative;
+                  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1) 0s, opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+                  width: 36px;
+              }
+        
+              .close-icon div:first-child {
+                  transform: translate3d(0px, 10px, 0px) rotate3d(0, 0, 1, -45deg);
+              }
+        
+              .close-icon div:first-child::after, .close-icon div:first-child::before {
+                  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1) 0s, opacity 0.2s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+              }
+        
+              .close-icon div:last-child {
+                  transform: translate3d(0px, 8px, 0px) rotate3d(0, 0, 1, 45deg);
+              }
+        
+              .close-icon div:last-child::after, .close-icon div:last-child::before {
+                  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1) 0.2s, opacity 0.2s cubic-bezier(0.19, 1, 0.22, 1) 0.18s;
+              }
+        
+              .close-icon div::after, .close-icon div::before {
+                  content: "";
+                  display: block;
+                  height: 100%;
+                  pointer-events: none;
+                  position: absolute;
+                  width: 100%;
+              }
+        
+              .close-icon div::before {
+                  background: #34d5cf;
+                  opacity: 1;
+                  transform: translate3d(0px, 0px, 0px);
+              }
+        
+              .close-icon div::after {
+                  background: #f3865f;
+                  opacity: 0;
+                  transform: translate3d(100%, 0px, 0px);
+              }
+        
+              .close-icon:hover div::before {
+                  opacity: 0;
+                  transform: translate3d(-100%, 0px, 0px);
+              }
+        
+              .close-icon:hover div::after {
+                  opacity: 1;
+                  transform: translate3d(0px, 0px, 0px);
+              }
+
+                /* Posts Styling  */
+                ul.posts-list {
+                    list-style: none; /* Remove default bullets */
+                    padding: 0;
+                    width: 100%; /* or a fixed width like 600px if you want a narrower list */
+                    max-width: 800px; /* maximum width of the list */
+                    margin: 0 auto;
+                }
+
+                li.post-item {
+                    position: relative; /* For absolute positioning of the custom bullet */
+                    margin-bottom: 40px;
+                    padding-left: 30px; /* Space for the custom bullet */
+                }
+                li.post-item::before {
+                    content: "##"; /* The custom bullet */
+                    position: absolute;
+                    left: 0; /* Align to the left of the list item */
+                    top: 0; /* Align to the top of the list item */
+                    color: #f3865f; /* Color of the custom bullet */
+                    font-weight: bolder; /* Make it bold */
+                    font-size: large;
+                    
+                }
+
+                h2.post-title {
+                    margin-bottom: 5px;
+                    font-size: 24px;
+                    margin-left: 10px;
+                }
+
+                h2.post-title a {
+                    /* text-decoration: none; */
+                    color: #f3865f;
+
+                    padding: 5px; /* Space around the text */
+                    border-radius: 5px; /* Rounded corners for the background */
+                    transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+                }
+
+                h2.post-title a:hover {
+                    background-color: #f3865f; /* Background color on hover */
+                    color: #282A36; /* Text color on hover */
+                }
+
+                p.post-date {
+                    margin-bottom: 5px;
+                    color: #777;
+                    font-style: italic;
+                }
+
+                p.post-description {
+                    color: #fffff;
+                    font-weight: 600;
+                }
+        </style>  
+                 
+    </head>
+    <body>
+        <!-- <h1>Notes Posts</h1> -->
+
+        <!-- List of Posts -->
+        <ul class="posts-list">
+            {allPosts.map(post => (
+                <li class="post-item">
+                    <h2 class="post-title">
+                        <a href={post.url}>
+                            {post.frontmatter.title}
+                        </a>
+                    </h2>
+                    <p class="post-date">
+                        {formatDate(post.frontmatter.pubDate)}
+                    </p>
+                    <p class="post-description">
+                        {post.frontmatter.description}
+                    </p>
+                </li>
+            ))}
+        </ul>
+
+        <div class="close-icon" onclick="location.href='../../notes/';">
+            <div></div>
+            <div></div>
+        </div> 
+    </body>
+</html>

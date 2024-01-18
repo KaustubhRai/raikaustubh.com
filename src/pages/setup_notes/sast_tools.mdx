@@ -32,6 +32,7 @@ tags: ["cybersecurity", "docker", "SAST"]
 <br></br>
 &nbsp;&nbsp; For the rebels who just want to skip to the good stuff (I see you 😤), jump right to the end for the Docker script[^1].
 
+And before running this tools, whenever you download a repo to scan, ALWAYS `git clone` it, dont download it directly as a zip form the UI. Since its not initialized as a git repo, the tools dont work properly. 
 
 ### GitLeaks
 &nbsp;&nbsp; *Windows Setup*: - 
@@ -55,10 +56,13 @@ tags: ["cybersecurity", "docker", "SAST"]
         ```
         <br></br>
 &nbsp;&nbsp; MacOS Setup: - 
-        1) `brew install gitleaks`
-        2) a
-        3) a
-        4) a
+        1) Simplest way - `brew install gitleaks`
+        2) `git clone` the repo and cd into the repo
+        3) run 
+        ```bash
+        //
+        gitleaks detect -v
+        ```
         <br></br>
 ### Gitty Leaks
 &nbsp;&nbsp; windows Setup: - 
@@ -214,8 +218,8 @@ docker run -it --rm -v "$(PWD):/repo" secrets-checker && cd talisman_html_report
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp; Voila! You'll have reports waiting for you in Secret_Detection_Reports and talisman_html_report.
-
-Pro tip: The Talisman report needs a server to show its full glory, so that's what the latter part of the command is for. Just hit up localhost:8000 after the scan, and you're golden. And hey, don't forget to turn off the server once you're done playing detective.
+<br></br>
+Pro tip: The Talisman report needs a server to show its full glory, so that's what the latter part of the command is for. Just hit up `localhost:8000` after the scan, and you're golden. And hey, don't forget to turn off the server once you're done playing detective.
 
 
 [^1]: The beauty of this script - once the image is built, every time you run the command, it fires up in a container and poof - it's gone once it's done, leaving behind just the reports on your machine. No hassle of remembering to delete containers and saving stuff from container to local host

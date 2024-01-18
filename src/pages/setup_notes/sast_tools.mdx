@@ -46,10 +46,13 @@ tags: ["cybersecurity", "docker", "SAST"]
         ```
         <br></br>
 &nbsp;&nbsp; Linux Setup: - 
-        1) a
-        2) a
-        3) a
-        4) a
+        1) Same as windows setup, first check if Go is installed or not (`go version`). If not then install that and then `git clone` the <a href="https://github.com/gitleaks/gitleaks.git" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">git leaks repo</a>.
+        2) `cd` into the gitleaks locally downloaded repo. and run `make build`
+        3) a file named `gitleaks` will be there now. copy that file into the repo and cd into the repo you want to scan and run 
+        ```bash
+        // 
+        ./gitleaks detect -v
+        ```
         <br></br>
 &nbsp;&nbsp; MacOS Setup: - 
         1) `brew install gitleaks`

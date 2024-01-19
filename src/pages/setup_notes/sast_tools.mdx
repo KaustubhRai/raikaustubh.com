@@ -65,38 +65,41 @@ And before running thess tools, whenever you download a repo to scan, ALWAYS `gi
         ```
         <br></br>
 ### Gitty Leaks
-&nbsp;&nbsp; windows Setup: - 
-        1) a
-        2) a
-        3) a
-        4) a
+&nbsp;&nbsp; *Windows Setup*: - 
+        1) Installing Gitty Leaks in windows is a bitch and a half, what i have found is install it on a   
+        <a href="https://learn.microsoft.com/en-us/windows/wsl/install?source=recommendations" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">WSL</a>, if you use windows.
+        2) For WSL installation, its same as Linux
         <br></br>
-&nbsp;&nbsp; Linux Setup: - 
-        1) a
-        2) a
-        3) a
-        4) a
-        <br></br>
-&nbsp;&nbsp; MacOS Setup: - 
-        1) a
-        2) a
-        3) a
-        4) a
+&nbsp;&nbsp; *Linux and MacOS Setup*: - 
+        1) `pip3 install gittyleaks` - prequistes that, *python3* and *git* must be there
+        2) *cd* into the repo and run `gittyleaks --find-anything`
         <br></br>
 ### Talisman
-&nbsp;&nbsp; windows Setup: - 
-        1) a
-        2) a
-        3) a
-        4) a
+&nbsp;&nbsp; *Windows Setup*: - 
+        1) Download the proper talisman pacakge from <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a>.
+        2) Copy that *.exe* into the repo that needs to be scanned.
+        3) Run `talisman_windows_amd64.exe -s` *(mine was amd64 package)*
         <br></br>
-&nbsp;&nbsp; Linux Setup: - 
-        1) a
-        2) a
-        3) a
-        4) a
+&nbsp;&nbsp; *Linux Setup*: - 
+        1) Check architecture of system, `arch`
+        2) Download, that specific package from <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a> for linux. 
+        3) *(Mine was x86_64)* so downloading *linux_amd_64* package
+        4) Run, 
+        ```bash
+        //  
+        
+        wget https://github.com/thoughtworks/talisman/releases/download/v1.31.0/talisman_linux_amd64
+
+        chmod +x talisman_linux_amd64
+
+        sudo mv talisman_linux_amd64 /usr/local/bin/talisman
+
+        cd <repo to scan>/
+
+        talisman --scan
+        ```
         <br></br>
-&nbsp;&nbsp; MacOS Setup: - 
+&nbsp;&nbsp; *MacOS Setup*: - 
         1) a
         2) a
         3) a
@@ -219,7 +222,8 @@ docker run -it --rm -v "$(PWD):/repo" secrets-checker && cd talisman_html_report
 
 &nbsp;&nbsp;&nbsp;&nbsp; Voila! You'll have reports waiting for you in Secret_Detection_Reports and talisman_html_report.
 <br></br>
-Pro tip: The Talisman report needs a server to show its full glory, so that's what the latter part of the command is for. Just hit up `localhost:8000` after the scan, and you're golden. And hey, don't forget to turn off the server once you're done playing detective.
 
+#### Pro tip: The Talisman needs a server to show its full glory, so that's what the latter part of the command is. Just hit up `localhost:8000` after the scan, and you're golden. And, don't forget to turn off the server once you're done playing detective.
 
+<br></br>
 [^1]: The beauty of this script - once the image is built, every time you run the command, it fires up in a container and poof - it's gone once it's done, leaving behind just the reports on your machine. No hassle of remembering to delete containers and saving stuff from container to local host

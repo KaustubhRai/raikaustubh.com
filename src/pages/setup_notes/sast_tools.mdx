@@ -17,7 +17,7 @@ tags: ["cybersecurity", "docker", "SAST"]
 <br></br>
 &nbsp;&nbsp; That's where I was, trying to keep track of different syntaxes of differnt tools, output formats, and those pesky ansi escape codes when you try to pipe the output from terminal to a file. Trust me, it's as fun as trying to solve a Rubik's Cube in the dark. 😵
 
-&nbsp;&nbsp;&nbsp;&nbsp; So, I thought, why not make life simpler? My first thought was a bash script to run all these tools sequentially. But then, the little voice in my head said, "you're an comp sci engineer. automate it even more. make your life harder just for shitz and giggles." 😞
+&nbsp;&nbsp;&nbsp;&nbsp; So, I thought, why not make life simpler? My first thought was a bash script to run all these tools sequentially. But then, the little voice in my head said, "you're a comp sci engineer. trained for suffering in the name of engineering. automate it even more. make your life harder just for shitz and giggles." 😞
 
 &nbsp;&nbsp; And that's how I stumbled upon the idea of dockerizing these tools. Because, why not challenge yourself when you are already building something like this for the first time.
 <br></br>
@@ -81,7 +81,7 @@ And before running thess tools, whenever you download a repo to scan, ALWAYS `gi
         3) Run `talisman_windows_amd64.exe -s` *(mine was amd64 package)*
         <br></br>
 &nbsp;&nbsp; *Linux Setup*: - 
-        1) Check architecture of system, `arch`
+        1) Check architecture of system, run `arch`
         2) Download, that specific package from <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a> for linux. 
         3) *(Mine was x86_64)* so downloading *linux_amd_64* package
         4) Run, 
@@ -100,21 +100,30 @@ And before running thess tools, whenever you download a repo to scan, ALWAYS `gi
         ```
         <br></br>
 &nbsp;&nbsp; *MacOS Setup*: - 
-        1) a
-        2) a
-        3) a
-        4) a
+        1) To know the system architecture, run `dpkg --print-architecture`
+        2) After knowing, that specific architecture, find that package in <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a>, and download that pacakage. Give it executable permissions and copy that file into the repo that needs to be scanned and run the talisman scan.
+        ```bash
+        //  
+        
+        wget https://github.com/thoughtworks/talisman/releases/download/v1.31.0/talisman_darwin_arm64
+
+        chmod +x talisman_darwin_arm64
+
+        // Copy the talisman_darwin_arm64 into the repo
+
+        ./talisman_darwin_arm64 --scan
+        ```
         <br></br>
 
 &nbsp; If you want to run an indivual tool on its own, the setup for installation is above. 
 
-
+<br></br>
 &nbsp;&nbsp; Moving on, now if you want to run it on a repo to scan the secrets OWASP's got this neat repo called wrongsecrets - it's like a <a href="https://github.com/OWASP/wrongsecrets" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">playground for secret scanning</a>.
 
-
+<br></br>
 &nbsp;&nbsp;&nbsp; Now, for my pièce de résistance  - the Docker script to bind them all. Imagine it like a master spell that conjures all three tools in one go.
 
-
+<br></br>
 ```docker
 // secrets-checker
 # Use a base image with Python, git, and other necessary tools
@@ -206,21 +215,21 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 &nbsp; Before you run this, make sure Docker's up and running. 
 
-&nbsp;&nbsp; Open the docker desktop/docker daemon.
+&nbsp;&nbsp; -  Open the docker desktop/docker daemon.
 
-&nbsp;&nbsp; Create a file named just `Dockerfile` and save the script
+&nbsp;&nbsp; - Create a file named just `Dockerfile` and save the script
 
-&nbsp;&nbsp; Build the image from the script, with 
+&nbsp;&nbsp; - Build the image from the script, with 
     `docker build -t secrets-checker .`
 
-&nbsp;&nbsp; then head over to your repo and let it rip with 
+&nbsp;&nbsp; - then head over to your repo and let it rip with 
 
 ```bash
 // 
 docker run -it --rm -v "$(PWD):/repo" secrets-checker && cd talisman_html_report/ && python3 -m http.server 8000
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp; Voila! You'll have reports waiting for you in Secret_Detection_Reports and talisman_html_report.
+&nbsp;&nbsp;&nbsp;&nbsp; -  Voila! You'll have reports waiting for you in Secret_Detection_Reports and talisman_html_report.
 <br></br>
 
 #### Pro tip: The Talisman needs a server to show its full glory, so that's what the latter part of the command is. Just hit up `localhost:8000` after the scan, and you're golden. And, don't forget to turn off the server once you're done playing detective.

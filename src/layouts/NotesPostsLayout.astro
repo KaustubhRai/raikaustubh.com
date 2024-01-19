@@ -1,6 +1,4 @@
 ---
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
 import '../styles/global.css'
 ---
 
@@ -13,7 +11,7 @@ import '../styles/global.css'
 		<link rel="preconnect" href="https://fonts.googleapis.com">
     	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     	<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-		<title>Blog Posts</title>
+		<title>Notes Gathered</title>
 		<style>
 			html {
                 height: 100%;
@@ -78,11 +76,9 @@ import '../styles/global.css'
 		</style>
 	</head>
 	<body>
-		<!-- CONTENT OF HEADER  -->
-		<div id="header-placeholder"></div>
-		<Header />
+		
         <!-- Go Back Link -->
-        <a href="/posts/" class="go-back" style="text-align: left; margin: 30px; text-decoration: none; color: #35fa87; font-weight: bold;">&lt; Go Back</a>
+        <a href="/notes_posts/notes_posts_index/" class="go-back" style="text-align: left; margin: 30px; text-decoration: none; color: #35fa87; font-weight: bold;">&lt; Go Back</a>
 
         <h2 class="title_text">{Astro.props.frontmatter.title}</h2>
         <h3 class="subtitle_desc_text">{Astro.props.frontmatter.description}</h3>
@@ -93,8 +89,6 @@ import '../styles/global.css'
         </article>
         <!-- Back to Top Link -->
         <a href="#top" class="back-to-top">^ Back to Top</a>
-		<!-- CONTENT OF FOOTER -->
-		<footer id="footer-placeholder"></footer>
-		<Footer />
+		
 	</body>
 </html>

@@ -1,0 +1,238 @@
+---
+layout: '../../layouts/SetupPostsLayout.astro'
+title: "Secret Scanning"
+pubDate: 2023-08-01T16:29:43+05:30
+description: "My Top 3 Secret Scanning Tools: Dockerized for Efficiency"
+author: "Kaustubh"
+image: 
+tags: ["cybersecurity", "docker", "SAST"]
+---
+
+&nbsp;&nbsp; This is the start of me dockerizing multiple tools into one. Here we go, a little backstory for this post, because I like to narrate. 
+<br></br>
+<img src="/assets/gif/exposition.gif" alt="/exposition" style="max-width: 60%; display: block; margin: auto;  border-radius: 8px;" />
+<br></br>
+
+&nbsp;&nbsp;&nbsp;&nbsp; Currently for Secrets Scanning to find sensitive information, i used to have different different tools. I used to juggle a bunch of secret scanning tools, running them one by one, waiting for each to finish before starting the next.
+<br></br>
+&nbsp;&nbsp; That's where I was, trying to keep track of different syntaxes of differnt tools, output formats, and those pesky ansi escape codes when you try to pipe the output from terminal to a file. Trust me, it's as fun as trying to solve a Rubik's Cube in the dark. 😵
+
+&nbsp;&nbsp;&nbsp;&nbsp; So, I thought, why not make life simpler? My first thought was a bash script to run all these tools sequentially. But then, the little voice in my head said, "you're a comp sci engineer. trained for suffering in the name of engineering. automate it even more. make your life harder just for shitz and giggles." 😞
+
+&nbsp;&nbsp; And that's how I stumbled upon the idea of dockerizing these tools. Because, why not challenge yourself when you are already building something like this for the first time.
+<br></br>
+&nbsp; Let's dive into the tools I've picked for this little adventure:
+
+1) GitLeaks: It's like the Sherlock Holmes of finding leaks in your Git repos.<a href="https://github.com/gitleaks/gitleaks" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Check it out</a>. 
+2) Gitty Leaks: Think of it as the Watson to Git Leaks' Sherlock. <a href="https://github.com/kootenpv/gittyleaks" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Have a look</a>. 
+3) Talisman: This one's like the guardian angel for your code, keeping those secrets safe. <a href="https://github.com/thoughtworks/talisman" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Give it a gander</a>. 
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; Now, for the meat of the matter. I've got setup guides for each OS - Windows, Linux, and MacOS. You'll find step-by-step instructions that even your grandma could follow (no offense to tech-savvy grandmas out there).
+<br></br>
+&nbsp;&nbsp; For the rebels who just want to skip to the good stuff (I see you 😤), jump right to the end for the Docker script[^1].
+<br></br>
+And before running thess tools, whenever you download a repo to scan, ALWAYS `git clone` it, dont download it directly as a zip form the UI. Since its not initialized as a git repo, the tools dont work properly. 
+<br></br>
+### GitLeaks
+&nbsp;&nbsp; *Windows Setup*: - 
+        1) To run GitLeaks in Windows, the prequiste is only installing it through `Go`. So <a href="https://go.dev/doc/install" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">install GO</a>, easiest way is with the .msi package. 
+        2) After Installing GO, download the appropriate pacakge from <a href="https://github.com/gitleaks/gitleaks/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">releases</a>. 
+        If not sure then run command, `echo %PROCESSOR_ARCHITECTURE%` or `wmic computersystem get systemtype` in cmd.
+        3) Unzip the package, and COPY the `.exe` file into the repo, that needs to be scanned.
+        4) Run 
+        ```bash
+        // 
+        gitleaks.exe detect -v
+        ```
+        <br></br>
+&nbsp;&nbsp; *Linux Setup*: - 
+        1) Same as windows setup, first check if Go is installed or not (`go version`). If not then install that and then `git clone` the <a href="https://github.com/gitleaks/gitleaks.git" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">git leaks repo</a>.
+        2) `cd` into the gitleaks locally downloaded repo. and run `make build`
+        3) a file named `gitleaks` will be there now. copy that file into the repo and cd into the repo you want to scan and run 
+        ```bash
+        // 
+        ./gitleaks detect -v
+        ```
+        <br></br>
+&nbsp;&nbsp; *MacOS Setup*: - 
+        1) Simplest way - `brew install gitleaks`
+        2) `git clone` the repo and cd into the repo
+        3) run 
+        ```bash
+        // 
+        gitleaks detect -v
+        ```
+        <br></br>
+### Gitty Leaks
+&nbsp;&nbsp; *Windows Setup*: - 
+        1) Installing Gitty Leaks in windows is a bitch and a half, what i have found is install it on a   
+        <a href="https://learn.microsoft.com/en-us/windows/wsl/install?source=recommendations" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">WSL</a>, if you use windows.
+        2) For WSL installation, its same as Linux
+        <br></br>
+&nbsp;&nbsp; *Linux and MacOS Setup*: - 
+        1) `pip3 install gittyleaks` - prequistes that, *python3* and *git* must be there
+        2) *cd* into the repo and run `gittyleaks --find-anything`
+        <br></br>
+### Talisman
+&nbsp;&nbsp; *Windows Setup*: - 
+        1) Download the proper talisman pacakge from <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a>.
+        2) Copy that *.exe* into the repo that needs to be scanned.
+        3) Run `talisman_windows_amd64.exe -s` *(mine was amd64 package)*
+        <br></br>
+&nbsp;&nbsp; *Linux Setup*: - 
+        1) Check architecture of system, run `arch`
+        2) Download, that specific package from <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a> for linux. 
+        3) *(Mine was x86_64)* so downloading *linux_amd_64* package
+        4) Run, 
+        ```bash
+        //  
+        
+        wget https://github.com/thoughtworks/talisman/releases/download/v1.31.0/talisman_linux_amd64
+
+        chmod +x talisman_linux_amd64
+
+        sudo mv talisman_linux_amd64 /usr/local/bin/talisman
+
+        cd <repo to scan>/
+
+        talisman --scan
+        ```
+        <br></br>
+&nbsp;&nbsp; *MacOS Setup*: - 
+        1) To know the system architecture, run `dpkg --print-architecture`
+        2) After knowing, that specific architecture, find that package in <a href="https://github.com/thoughtworks/talisman/releases" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Releases</a>, and download that pacakage. Give it executable permissions and copy that file into the repo that needs to be scanned and run the talisman scan.
+        ```bash
+        //  
+        
+        wget https://github.com/thoughtworks/talisman/releases/download/v1.31.0/talisman_darwin_arm64
+
+        chmod +x talisman_darwin_arm64
+
+        // Copy the talisman_darwin_arm64 into the repo
+
+        ./talisman_darwin_arm64 --scan
+        ```
+        <br></br>
+
+&nbsp; If you want to run an indivual tool on its own, the setup for installation is above. 
+
+<br></br>
+&nbsp;&nbsp; Moving on, now if you want to run it on a repo to scan the secrets OWASP's got this neat repo called wrongsecrets - it's like a <a href="https://github.com/OWASP/wrongsecrets" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">playground for secret scanning</a>.
+
+<br></br>
+&nbsp;&nbsp;&nbsp; Now, for my pièce de résistance  - the Docker script to bind them all. Imagine it like a master spell that conjures all three tools in one go.
+
+<br></br>
+```docker
+// secrets-checker
+# Use a base image with Python, git, and other necessary tools
+FROM python:3.10-slim-buster
+
+# Install necessary tools and dependencies
+RUN apt-get update && \
+    apt-get install -y git wget make curl unzip procps && \
+    wget https://go.dev/dl/go1.21.2.linux-amd64.tar.gz && \
+    tar -xvf go1.21.2.linux-amd64.tar.gz && \
+    mv go /usr/local && \
+    rm go1.21.2.linux-amd64.tar.gz
+
+# Set environment variables
+ENV PATH="$PATH:/usr/local/go/bin"
+ENV GIT_DISCOVERY_ACROSS_FILESYSTEM=true
+
+# Install gittyleaks and Gitleaks
+RUN pip install gittyleaks && \
+    wget -O /tmp/gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/download/v8.18.0/gitleaks_8.18.0_linux_x64.tar.gz && \
+    tar -xzf /tmp/gitleaks.tar.gz -C /usr/local/bin gitleaks && \
+    chmod +x /usr/local/bin/gitleaks && \
+    rm /tmp/gitleaks.tar.gz
+
+# Install Talisman
+RUN wget -O /usr/local/bin/talisman https://github.com/thoughtworks/talisman/releases/download/v1.31.0/talisman_linux_amd64 && \
+    chmod +x /usr/local/bin/talisman
+
+# Install Talisman HTML Report
+RUN mkdir -p ~/.talisman && \
+    curl https://github.com/jaydeepc/talisman-html-report/archive/v1.3.zip  -o ~/.talisman/talisman_html_report.zip -J -L && \
+    cd ~/.talisman && \
+    unzip talisman_html_report.zip -d . && \
+    mv talisman-html-report-1.3 talisman_html_report && \
+    rm talisman_html_report.zip
+
+# Embed a Python script for cleaning the gittyleaks report
+RUN echo 'import re\n\
+import sys\n\
+\n\
+def remove_ansi_escape_codes(file_path):\n\
+    ansi_escape = re.compile(r"\x1B\[\d+(;\d+)*m")\n\
+    with open(file_path, "r") as file:\n\
+        content = file.read()\n\
+    cleaned_content = ansi_escape.sub("", content)\n\
+    with open(file_path, "w") as file:\n\
+        file.write(cleaned_content)\n\
+\n\
+if __name__ == "__main__":\n\
+    remove_ansi_escape_codes(sys.argv[1])' > /usr/local/bin/clean_gittyleaks_report.py && \
+    chmod +x /usr/local/bin/clean_gittyleaks_report.py
+
+# Update the entrypoint script
+RUN echo '#!/bin/bash\n\
+\n\
+# Ensure we are in the mounted Git repository directory\n\
+if [ ! -d "/repo/.git" ]; then\n\
+    echo "Error: Git repository not found in /repo"\n\
+    exit 1\n\
+fi\n\
+cd /repo\n\
+\n\
+mkdir -p /repo/Secret_Detection_Reports\n\
+\n\
+echo "\n\nStarting gittyleaks..."\n\
+gittyleaks --find-anything | tee /repo/Secret_Detection_Reports/gittyleaks_report.txt\n\
+python /usr/local/bin/clean_gittyleaks_report.py /repo/Secret_Detection_Reports/gittyleaks_report.txt\n\
+\n\
+echo "\n\nStarting gitleaks..."\n\
+gitleaks detect --source=. --report-format=json --report-path=/repo/Secret_Detection_Reports/gitleaks_report.json\n\
+\n\
+echo "\n\nStarting Talisman..."\n\
+talisman --scanWithHtml --reportDirectory=/repo/Secret_Detection_Reports\n\
+\n\
+# Check if the Talisman HTML report directory exists\n\
+if [ -d "/repo/Secret_Detection_Reports/talisman_reports/data" ]; then\n\
+    # Start an HTTP server in the Talisman HTML report directory\n\
+    cd /repo/Secret_Detection_Reports/talisman_reports/data\n\
+    python -m http.server 8000 &\n\
+else\n\
+    echo "Talisman HTML report directory not found"\n\
+fi\n\
+' > /usr/local/bin/entrypoint.sh && \
+chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint to the embedded script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+```
+
+&nbsp; Before you run this, make sure Docker's up and running. 
+
+&nbsp;&nbsp; -  Open the docker desktop/docker daemon.
+
+&nbsp;&nbsp; - Create a file named just `Dockerfile` and save the script
+
+&nbsp;&nbsp; - Build the image from the script, with 
+    `docker build -t secrets-checker .`
+
+&nbsp;&nbsp; - then head over to your repo and let it rip with 
+
+```bash
+// 
+docker run -it --rm -v "$(PWD):/repo" secrets-checker && cd talisman_html_report/ && python3 -m http.server 8000
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp; -  Voila! You'll have reports waiting for you in Secret_Detection_Reports and talisman_html_report.
+<br></br>
+
+#### Pro tip: The Talisman needs a server to show its full glory, so that's what the latter part of the command is. Just hit up `localhost:8000` after the scan, and you're golden. And, don't forget to turn off the server once you're done playing detective.
+
+<br></br>
+[^1]: The beauty of this script - once the image is built, every time you run the command, it fires up in a container and poof - it's gone once it's done, leaving behind just the reports on your machine. No hassle of remembering to delete containers and saving stuff from container to local host

@@ -1,7 +1,7 @@
 ---
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import '../styles/global.css'
+import '../styles/global.css'	
 ---
 
 <html lang="en">
@@ -16,39 +16,80 @@ import '../styles/global.css'
 		<title>Notes</title>
 		<style>
 			html {
-			height: 100%;
-			margin: 0;
-			padding: 0;
+				height: 100%;
+				margin: 0;
+				padding: 0;
 			}
 
 			body {
-			min-height: 100vh;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			flex-direction: column;
-			font-family: 'Courier Prime', monospace;
-			background-color: #282A36;
-			overflow-x: hidden; /* Hide horizontal scrollbar */ 
+				min-height: 100vh;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				font-family: 'Courier Prime', monospace;
+				background-color: #282A36;
+				overflow-x: hidden; /* Hide horizontal scrollbar */ 
 			}
 
-            /* under-construction styles */
-			.under-construction {
-				color: #ffffff;
+			/* Add this style for the grid container */
+			.grid {
+				display: flex; /* Use flexbox to align children */
+				justify-content: center; /* Center the cards horizontally */
+				flex-wrap: wrap; /* Allow items to wrap as needed */
+				gap: 20px; /* Add some space between cards */
+				margin-top: 90px; /* Adjust this value to move the cards down */
+			}
+
+            .card {
+				background-color: #4a5c70;
+				border-radius: 15px;
+				padding: 30px;
+				margin: 20px;
 				text-align: center;
-				margin-top: 100px; /* Adjust as needed */
-				font-size: 20px; /* Adjust as needed */
-                font-weight: 400;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+				transition: transform 0.3s, box-shadow 0.3s;
+				display: flex;
+				flex-direction: column;
+				justify-content: center; /* Center items vertically */
+    			align-items: center; /* Center items horizontally */
+				height: 250px;
+				width: 480px;
 			}
-
-			.under-construction a {
-				color: #f3865f;
-				text-decoration: none;
+			
+			.card:hover {
+				transform: scale(1.1);
+				cursor: pointer;
+				box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+			}
+			.card-title {
+				font-size: 50px;
 				font-weight: bold;
+				margin: 0;
+				transition: all 0.3s ease;
+				color: #F3865F;
+				margin-top: 55px;
 			}
-
-			.under-construction a:hover {
-				text-decoration: underline;
+			.card-text {
+				opacity: 0;
+				transition: opacity 0.3s, transform 0.3s;
+				transform: translateY(20px);
+				margin: 8px; /* increase or decrease this for space between the card text */
+				color: #94C073;
+				font-size: 25px;
+				font-weight: 400;
+				
+				/* margin-top: 0px; */
+			}
+			.card:hover .card-title {
+				color: #a0a0a0;
+				transform: translateY(-30px); /* Increase or decrease this value to move the card title up or down as needed */
+			}
+			.card:hover .card-text {
+				opacity: 1;
+				transform: translateY(0);
+				text-decoration: solid underline #94C073 3px;
+				text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); /* Subtle text shadow for depth */
 			}
 			
 
@@ -59,10 +100,19 @@ import '../styles/global.css'
 		<div id="header-placeholder"></div>
 		<Header />
 
-		<div class="under-construction">
-			Apologies! Still programming this section. In the meantime, you can check out the <a href="/posts">Posts</a> section.
-		</div>
-
+		<!-- Content of Notes -->
+		<div class="grid">
+            <section class="card" onclick="location.href='/setup_notes/setup_index/';">
+                <h2 class="card-title">SETUP</h2>
+                <p class="card-text">Installations & Guides</p>
+                <p class="card-text">Security Tools</p>
+            </section>
+            <section class="card" onclick="location.href='/notes_posts/notes_posts_index/';">
+                <h2 class="card-title">NOTES</h2>
+                <p class="card-text">Insights & Learnings</p>
+                <p class="card-text">Research and Practical Tips</p>
+            </section>
+        </div>
 
 		<!-- CONTENT OF FOOTER -->
 		<footer id="footer-placeholder"></footer>

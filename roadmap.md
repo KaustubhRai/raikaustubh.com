@@ -17,6 +17,12 @@ In Code Scanning/SAST
     Deepsource
     sonarqube
 
+we can map the results, (if we have the CVE number from all the above tools) through CVE Map [https://github.com/projectdiscovery/cvemap?ref=blog.projectdiscovery.io]
+
+and show the results final, at the end
+
+
+post starting stuff, start with :
 
   a small differentiation between SAST and SCA
   
@@ -26,3 +32,8 @@ In Code Scanning/SAST
 
 
 and then, Snyk mostly does the work for SCA. so no other tool for SCA
+
+
+FINAL Merge for both 
+
+and if the docker script for Code Scanning/SAST is ready then we can use both the docker images in a k8s. [look how to deploy on kubernetes, that both the tools run simultaneously and we get the results in end, for both the docker images] 

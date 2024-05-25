@@ -1,0 +1,69 @@
+---
+layout: '../../layouts/MarkdownPostLayout.astro'
+title: "Rahasya 🕵️"
+description: "My Latest Secret Scanning Automation-Tool"
+pubDate: 2024-03-20T16:01:41+05:30
+author: "Kaustubh"
+tags: ["AppSec", "GitLeaks", "GittyLeaks", "Trufflehog", "GitGuardian", "Talisman", "DetectSecrets"]
+---
+
+&nbsp;&nbsp; Hey everyone! 🌟
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; I've been working on something cool and it's finally ready for the spotlight. Meet, <a href="https://github.com/KaustubhRai/rahasya" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Rahasya</a>,my latest creation designed to up your secret scanning game. This tool is all about making sure those sneaky secrets don't end up where they shouldn't.
+
+<br></br>
+<img src="/assets/gif/rahasya.gif" alt="/rahasya" style="max-width: 80%; display: block; margin: auto;  border-radius: 8px;" />
+<br></br>
+
+## Why Rahasya? 
+
+&nbsp;&nbsp; We all know the struggle — keeping API keys, passwords, and other sensitive info out of public repositories is a must, but it can be a pain to manage. 
+
+&nbsp; That’s where Rahasya comes in. It bundles some of the best open-source tools into one package, making comprehensive scans a breeze.
+
+<br></br>
+
+## What’s Inside? 
+
+&nbsp;&nbsp; <a href="https://github.com/KaustubhRai/rahasya" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Rahasya</a> combines the strengths of several top-tier tools like GitLeaks, Gitty Leaks, TruffleHog, Detect Secrets, Git Guardian, and Talisman. Whether you’re a developer or a security engineer, Rahasya is here to make your life easier and your code safer.
+
+<br></br>
+<br></br>
+<img src="/assets/img/run_rahasya.png" alt="/run_rahasya" style="max-width: 80%; display: block; margin: auto;  border-radius: 8px;" />
+<br></br>
+## How to Use It? 
+
+&nbsp;&nbsp; Pull the Docker image and run it in your project’s root directory where it's git cloned.
+
+
+```bash
+// Docker
+# download the image
+$ docker pull raikaustubh/rahasya
+
+# run the image at the project's location in a self deleting container once its done using
+$ docker run -it --rm -v "$(PWD):/repo" raikaustubh/rahasya
+```
+<br></br>
+&nbsp;&nbsp; You can customize the scans to fit your needs, whether you want to run all tools at once or pick and choose specific ones. The results are organized neatly, so reviewing them is a breeze.
+
+
+<br></br>
+## Shift Left Security for Devs
+&nbsp;&nbsp;Rahasya isn't just for security pros; it’s great for developers too. You can deploy it as a GitHub Action, which means every time you push code or create a pull request, Rahasya will run the scans and alert you to any issues. 
+
+&nbsp; It’s a fantastic way to integrate security into your development process right from the start.
+
+<br></br>
+
+
+## Want to Know More?
+&nbsp;&nbsp;&nbsp;&nbsp; I've written an in-depth post about Rahasya on BreachForce. If you're curious to dive deeper into what Rahasya can do, head over to 
+
+### Take a gander here: <a href="https://breachforce.net/rahasya" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">BreachForce Blog</a>. 
+<br></br>
+<img src="/assets/gif/signing_off.gif" alt="/signing_off" style="max-width: 60%; display: block; margin: auto;  border-radius: 8px;" />
+<br></br>
+&nbsp;&nbsp; Stay tuned for more updates and tools. I might not post often, but when I do, I make sure it’s worth your time. 🚀
+

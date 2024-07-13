@@ -1,0 +1,190 @@
+---
+layout: '../../layouts/MarkdownPostLayout.astro'
+title: "Understanding Sources and Sinks: A Guide to Taint Analysis"
+description: What is source and sinks? identify untrusted data flow in various frameworks and languages.
+pubDate: 2024-07-13T16:01:41+05:30
+author: "Kaustubh"
+tags: ["what is sink and source", "code review", "source code", "React", "TypeScript", "Java", "DetectSecrets"]
+---
+
+&nbsp;&nbsp; During testing or code reviews, it’s crucial to understand how users input flows through a system. The ability to read the code of the application and understand it thoroughly is just as important as breaking that application. 
+
+&nbsp;&nbsp;&nbsp;&nbsp; This understanding enables us to spot weaknesses and safeguard the system more effectively. One powerful technique to achieve this is taint analysis. In that spirit, let's delve into the concepts of sources and sinks.
+<br></br>
+## Understanding Taint Analysis
+
+&nbsp;&nbsp; Taint analysis is a method used to track the flow of data through a program, start to end. It helps in identifying how data from an untrusted source can affect the execution of a program, potentially leading to security breaches.
+
+## The Role of Sources and Sinks
+
+In taint analysis, the concepts of sources and sinks are fundamental:
+<br></br>
+<img src="/assets/img/sourceandsink.png" alt="/sourceandsink" style="max-width: 50%; display: block; margin: auto;  border-radius: 8px;" />
+<br></br>
+ - Sources: These are points in the program where untrusted data enters. Examples include user input fields, network interfaces, and external databases.
+
+ - Sinks: These are points where the data ends up or is executed. Sinks can include places where data is written to a file, displayed on the UI, or used in a database query.
+<br></br>
+## Why Taint Analysis is Important
+
+&nbsp;&nbsp; When we test systems or do code reviews, we don’t always have the luxury of a UI to observe how data flows. In such a scenario taint analysis is apt. It allows us to trace the path of user inputs through the system, highlighting how they interact with different components and where they ultimately end up. 
+
+&nbsp;&nbsp;&nbsp;&nbsp; This visibility is critical in identifying potential vulnerabilities, such as SQL injection points, cross-site scripting (XSS) vulnerabilities, and other forms of data mishandling.
+<br></br>
+## Finding Sources and Sinks in Different Languages and Frameworks
+&nbsp;&nbsp;&nbsp; The methods for identifying sources and sinks can vary depending on the programming language and framework being used. Here’s a guide on how to approach this in some common scenarios:
+
+### JavaScript and Web Development sources
+&nbsp; JavaScript sources include various properties and methods that can accept user input:
+ - `document.URL`: Returns the URL of the document.
+
+ - `document.documentURI`: Returns the URI of the document.
+
+ - `document.cookie`: Accesses the cookies associated with the document.
+
+ - `document.referrer`: Returns the URI of the document that is linked to the current document.
+
+ - `window.name`: Returns the name of the window.
+
+ - `history.pushState()` and `history.replaceState()`: Allow manipulation of the browser history.
+<br></br>
+### TypeScript and React sources
+- State Variable
+    - defined using the `useState` hook or other state management libraries.
+    - e.g., `const [inputValue, setInputValue] = useState('');`
+- Event Handler
+    - functions that handle events like `onChange`, `onClick`, `onSubmit`, etc
+    - e.g., `const handleInputChange = (event) => { ... }`
+- Input Element
+    - where the user types their input
+    - e.g., `<input type="text" value={inputValue} onChange={handleInputChange} />`
+- Form Elements
+    - HTML elements like `<input>`, `<textarea>`, and `<select>`. These elements are often sources of user input.
+- Props
+    - It is a pattern to share information between a parent component and a child component. User input can be passed down as props from a parent component.
+    - e.g., `const MyComponent = ({ initialValue }) => { ... }`
+<br></br>
+### DOM-XSS sinks
+These are some sinks that can lead to DOM-based XSS vulnerabilities:
+
+- `document.write()` and `document.writeln()`: Write directly to the document.
+
+- `element.innerHTML` and `element.outerHTML`: Allow manipulation of the HTML content of elements.
+
+- `element.insertAdjacentHTML()`: Inserts HTML at specified positions relative to the element.
+<br></br>
+### JavaScript Injection sinks
+Potentially dangerous functions that can execute JavaScript code:
+
+- `eval()`: Executes a string of JavaScript code.
+
+- `function()`: Creates a new function from a string of code.
+
+- `setTimeout()` and `setInterval()`: Execute code after a delay or at intervals if passed a string.
+
+- `element.onevent`: Assigns event handler attributes.
+<br></br>
+### Open-Redirection sinks
+These properties can lead to open redirection vulnerabilities:
+
+- `location`: Represents the location (URL) of the document.
+
+- `location.href`: Gets/sets the entire URL.
+
+- `location.assign()` and `location.replace()`: Navigate to a new URL.
+
+- `element.src`: Sets the source of an element, such as an iframe or image.
+<br></br>
+### Python and Django/Flask
+Common Sources
+- `request.GET['input']`: Retrieves query parameters.
+
+- `request.form['input']`: Retrieves form data.
+
+- `request.cookies['cookie_name']`: Retrieves cookies.
+
+Sinks
+- `cursor.execute(query)`: Executes a database command.
+
+- `render_template('template.html')`: Renders a template.
+
+- `subprocess.call('command')`: Executes a shell command.
+<br></br>
+### Java and Spring
+Common Sources
+- `@RequestParam String input`: Retrieves request parameters.
+
+- `request.getParameter("input")`: Retrieves request parameters.
+
+- `request.getCookies()`: Retrieves cookies.
+
+Sinks
+- `jdbcTemplate.update(query)`: Executes a database update.
+
+- `response.getWriter().write(output)`: Writes to the HTTP response.
+
+- `Runtime.getRuntime().exec(command)`: Executes a system command. 
+<br></br>
+### C# and ASP.NET
+Common Sources
+- `Request.QueryString["input"]`: Retrieves query string parameters.
+
+- `Request.Form["input"]`: Retrieves form data.
+
+- `Request.Cookies["cookie_name"]`: Retrieves cookies.
+
+Sinks
+- `sqlCommand.ExecuteNonQuery()`: Executes a database command.
+
+- `Response.Write(output)`: Writes to the HTTP response.
+
+- `Process.Start(command)`: Starts a new process.
+<br></br>
+
+## Steps to Implement Taint Analysis
+&nbsp;&nbsp; 1] Identify Sources: Begin by mapping out where user inputs enter your system. This could be through form fields, API endpoints, or other interfaces.
+
+&nbsp;&nbsp; 2] Trace the Flow: Follow the data as it moves through your system. Look for functions and methods that process or manipulate this data.
+
+&nbsp;&nbsp; 3] Identify Sinks: Determine where the data ends up, whether it’s being stored, displayed, or used in critical operations.
+
+&nbsp;&nbsp; 4] Analyze and Mitigate: Look for patterns where data might be mishandled. Ensure that all data reaching sinks is properly validated and sanitized to prevent vulnerabilities.
+<br></br>
+## Tools to Aid
+&nbsp; There are various tools available to help identify sources and sinks.
+
+### PortSwigger Labs
+&nbsp; PortSwigger offers practical labs where one can practice identifying sources and sinks: <a href="https://portswigger.net/web-security/dom-based" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">PortSwigger Labs</a>
+
+### Semgrep
+&nbsp;&nbsp; Semgrep is a powerful tool for rule-based scanning. It allows you to create custom rules to identify sources and sinks in your code. Read more about how Semgrep can be used: <a href="https://semgrep.dev/docs/writing-rules/data-flow/taint-mode" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Semgrep Documentation</a>
+
+### Burp Canary
+&nbsp; Burp Canary, an extension in BurpSuite that's pre-installed in Burp's browser. This enhances sources and sinks analysis by injecting unique tokens ("canaries") into the requests and tracks their flow. This precise tracking highlights how user input (sources) moves through the system to critical endpoints (sinks), identifying potential vulnerabilities. This automation complements taint analysis. Read more at: <a href="https://portswigger.net/burp/documentation/desktop/tools/dom-invader/settings/canary" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Burp Canary</a>
+
+### BurpSuite BCheck Scripts
+&nbsp; For scenarios where a UI is available, you can develop a BCheck script in Burp Suite to automate the identification of sources and sinks while you casually browse the application. Here is an example script for JavaScript sinks:
+```bash
+//BCheck Script
+metadata:
+  language: v2-beta
+  name: "JS sinks for DOM-XSS (passive)"
+  description: "JavaScript sink that could lead to DOM-XSS."
+  author: "Kaustubh"
+  tags: "passive"
+
+given response then
+  if {latest.response} matches "document.write|document.writeln|document.domain|\.innerHTML|\.outerHTML|\.insertAdjacentHTML|\.onevent" then
+    report issue and continue:
+      severity: info
+      confidence: firm
+      detail: "JavaScript sink that could lead to DOM-XSS."
+      remediation: "Investigate if this sink can be used to do a DOM-XSS."
+  end if
+```
+### <a href="https://github.com/KaustubhRai/bchecks" target="_blank" rel="noopener noreferrer" style="color: #f3865f; font-weight: bold; text-decoration: none;">Checkout more Bcheck scripts here</a>
+<br></br>
+
+## Conclusion
+
+&nbsp;&nbsp; Understanding sources and sinks is crucial in identifying potential vulnerabilities in a system. By recognising where untrusted data enters (sources) and where it is executed or stored (sinks), can safeguard against attacks.
